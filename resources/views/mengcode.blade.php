@@ -42,7 +42,7 @@
             <!-- Header -->
             <div class="header">
                 <div class="header-logo">
-                    <img src="./logo.svg" alt="">
+                    <img src="{{ asset('logo/logo.svg') }}" alt="">
                 </div>
             </div>
             <!-- End of Header -->
