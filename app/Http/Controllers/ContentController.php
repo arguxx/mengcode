@@ -24,7 +24,7 @@ class ContentController extends Controller
      */
     public function create()
     {
-        return view('create');
+        return view('crud.create');
     }
 
     /**
