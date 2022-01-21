@@ -35,7 +35,25 @@ class ContentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => ['required', 'string'],
+            'category' => ['required', 'string'],
+            'link' => ['required', 'integer'],
+            'src' =>  ['required', 'string'],
+            'description' =>  ['required', 'string'],
+            'image' => ['image|file|max: 1024'],
+        ]);
+        $request->file('image')->store('content-image');
+        $input = [
+            'title' => $request->input('title'),
+            'category' => $request->input('category'),
+            'link' => $request->input('link'),
+            'src' => $request->input('src'),
+            'description' => $request->input('description'),
+            // 'image' => $request->input('image'),
+        ];
+        ContentModel::create($input);
+        return redirect()->route('content.create');
     }
 
     /**
