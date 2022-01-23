@@ -29,7 +29,7 @@
 
         <meta charset='utf-8'>
         <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-        <title>MengCode</title><link rel="stylesheet" href="styles.css">
+        <title>MengCode</title>
         <meta name='viewport' content='width=device-width, initial-scale=1'>
         <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
         <link rel="icon" href="./src/icon/MengCode.svg" type="image/icon type">
@@ -65,7 +65,28 @@
             <div class="btn-container">
             </div>
             <!-- Content -->
-            <div class="section-center">
+                        <div class="section-center">
+                          <!-- Single Content -->
+                          @foreach ($content as $content)                             
+                          <div class="item-content">
+                            <!-- image -->
+                            <div class="photo-box">
+                                <img src="{{ asset('storage/' . $content->src) }}" alt={{ $content->title }}>
+                            </div>
+                            <!-- box title and icon -->
+                            <div class="title-and-icon">
+                                <!-- text body -->
+                                <div class="title">
+                                    <h1>{{ $content->title }}</h1>
+                                    <p>{{ $content->description }}</p>
+                                </div>
+                                <div class="icon">
+                                    <a href="{{ $content->link }}" target="_blank" rel="noopener" <button="" type="button" class="filter-btn" id="visit">Visit
+                                    </a>
+                                </div>
+                            </div>
+                            </div>
+                  @endforeach
             </div>
                 <!-- End Content -->
                 
@@ -159,6 +180,7 @@
         </div>
         <div class="footer"><p>Mulai aja Dulu</p></div>
         <!-- End Apps -->
+        
     </body>
     <script src="app.js"></script>
     <script src="disable.js"></script>

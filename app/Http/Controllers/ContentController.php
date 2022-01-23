@@ -14,7 +14,8 @@ class ContentController extends Controller
      */
     public function index()
     {
-        return view('mengcode');
+        $content = ContentModel::all();
+        return view('mengcode', ['content' => $content]);
     }
 
     /**
@@ -35,23 +36,24 @@ class ContentController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         $request->validate([
             'title' => ['required', 'string'],
             'category' => ['required', 'string'],
-            'link' => ['required', 'integer'],
-            'src' =>  ['required', 'string'],
+            'link' => ['required', 'string'],
             'description' =>  ['required', 'string'],
-            'image' => ['image|file|max: 1024'],
+            'src' => 'image|file|max:1024',
         ]);
-        $request->file('image')->store('content-image');
+
+
         $input = [
             'title' => $request->input('title'),
             'category' => $request->input('category'),
             'link' => $request->input('link'),
-            'src' => $request->input('src'),
+            'src' => $request->file('src')->store('content-image'),
             'description' => $request->input('description'),
-            // 'image' => $request->input('image'),
         ];
+        
         ContentModel::create($input);
         return redirect()->route('content.create');
     }

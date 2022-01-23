@@ -1,5 +1,5 @@
 <?php
-
+use App\Models\ContentModel;
 use App\Http\Controllers\ContentController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 Route::resource('content',ContentController::class);
 Route::get('/', function () {
-    return view('mengcode');
+    $content = ContentModel::all();
+    return view('mengcode', ['content' => $content]);
 });
 
 Route::get('/dashboard', function () {

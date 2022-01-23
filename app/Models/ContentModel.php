@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class ContentModel extends Model
 {
     use HasFactory;
+    protected $table = 'content';
+    protected $fillable = [
+    'title',
+    'category',
+    'link',
+    'src',
+    'description',
+    'src',
+];
 }

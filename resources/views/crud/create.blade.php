@@ -8,19 +8,29 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <form enctype="multipart/form-data">
-                        Title: <input type = "text" name = "" />
-                        <br>
-                        Category: <input type = "text" name = "" />
-                        <br>
-                        Link: <input type = "text" name = "" />
-                        <br>
-                        <input type='file' onchange="readImage(this);" />
-                        <img id="imggg" src="#" alt="your image" />
-                        <br>
-                        text: <input type = "text" name = "" />
-                        <br>
-                        <button>Input</button>
+                    <form action="{{ route('content.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                        <p style="color: black">Title</p>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" name="title">
+                        </div>
+                        <p style="color: black">Category</p>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" name="category">
+                        </div>
+                        <p style="color: black">Link</p>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" name="link">
+                        </div>
+                        <p style="color: black">desc</p>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" name="description">
+                        </div>
+                        <div class="input-group mb-3">
+                            <input class="form-control" type="file" id="formFile" name="src" />
+                        </div>
+
+                        <button type="submit" class="btn btn-success">Success</button>
                     </form>
                 </div>
             </div>
