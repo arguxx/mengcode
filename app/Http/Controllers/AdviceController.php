@@ -2,33 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ContentModel;
+use App\Models\AdviceModel;
 use Illuminate\Http\Request;
 
-class ContentController extends Controller
+class AdviceController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $content = ContentModel::where([
-            ['title', '!=', Null],
-            [function ($query) use ($request) {
-                if (($term = $request->term)){
-                    $query->orWhere( 'title', 'LIKE', '%' . $term . '%')->get();
-                }
-            }]
-        ])
-            ->orderBy("id", "desc")
-            ->paginate(8);
-            
-            // projects = Project: :latest ()-›paginate(5);
-            return view( 'mengcode', compact('content'))
-                ->with('i', (request ()->input ('page', 1) - 1) * 5);
-
     }
 
     /**
@@ -38,7 +23,7 @@ class ContentController extends Controller
      */
     public function create()
     {
-        return view('crud.create');
+        //
     }
 
     /**
@@ -49,13 +34,11 @@ class ContentController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
         $request->validate([
             'title' => ['required', 'string'],
             'category' => ['required', 'string'],
             'link' => ['required', 'string'],
             'description' =>  ['required', 'string'],
-            'src' => 'image|file|max:1024',
         ]);
 
 
@@ -63,21 +46,21 @@ class ContentController extends Controller
             'title' => $request->input('title'),
             'category' => $request->input('category'),
             'link' => $request->input('link'),
-            'src' => $request->file('src')->store('content-image'),
             'description' => $request->input('description'),
         ];
         
-        ContentModel::create($input);
-        return redirect()->route('content.create');
+        AdviceModel::create($input);
+        return redirect()->route('content.index');
     }
+    
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ContentModel  $contentModel
+     * @param  \App\Models\AdviceModel  $adviceModel
      * @return \Illuminate\Http\Response
      */
-    public function show(ContentModel $contentModel)
+    public function show(AdviceModel $adviceModel)
     {
         //
     }
@@ -85,10 +68,10 @@ class ContentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\ContentModel  $contentModel
+     * @param  \App\Models\AdviceModel  $adviceModel
      * @return \Illuminate\Http\Response
      */
-    public function edit(ContentModel $contentModel)
+    public function edit(AdviceModel $adviceModel)
     {
         //
     }
@@ -97,10 +80,10 @@ class ContentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ContentModel  $contentModel
+     * @param  \App\Models\AdviceModel  $adviceModel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ContentModel $contentModel)
+    public function update(Request $request, AdviceModel $adviceModel)
     {
         //
     }
@@ -108,12 +91,11 @@ class ContentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ContentModel  $contentModel
+     * @param  \App\Models\AdviceModel  $adviceModel
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ContentModel $contentModel)
+    public function destroy(AdviceModel $adviceModel)
     {
         //
     }
-
 }

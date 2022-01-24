@@ -1,8 +1,8 @@
 <?php
-use App\Models\ContentModel;
+use App\Models\AdviceModel;
 use App\Http\Controllers\ContentController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\AdviceController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,14 +13,16 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::resource('content',ContentController::class);
 Route::get('/', function () {
-    $content = ContentModel::all();
-    return view('mengcode', ['content' => $content]);
+    return redirect()->route('content.index');
 });
+Route::resource('content',ContentController::class);
+Route::resource('advice',AdviceController::class);
+
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $advice = AdviceModel::all();
+    return view('dashboard',['advice' => $advice]);
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';

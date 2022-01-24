@@ -10,29 +10,11 @@
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
         />
-
-    <!-- Open Graph / Facebook -->
-        <meta property="og:type" content="website">
-        <meta property="og:url" content="https://mengcode.netlify.app/">
-        <meta property="og:title" content="Mengcode.">
-        <meta property="og:description" content="Website who store multiple links
-        to help you growth.">
-        <meta property="og:image" content="https://mengcode.netlify.app/meta.png">
-
-        <!-- Twitter -->
-        <meta property="twitter:card" content="summary_large_image">
-        <meta property="twitter:url" content="https://mengcode.netlify.app/">
-        <meta property="twitter:title" content="Mengcode.">
-        <meta property="twitter:description" content="Website who store multiple links
-        to help you growth.">
-        <meta property="twitter:image" content="https://mengcode.netlify.app/meta.png">
-
         <meta charset='utf-8'>
         <meta http-equiv='X-UA-Compatible' content='IE=edge'>
         <title>MengCode</title>
         <meta name='viewport' content='width=device-width, initial-scale=1'>
         <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-        <link rel="icon" href="./src/icon/MengCode.svg" type="image/icon type">
         <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     </head>
 
@@ -42,7 +24,9 @@
             <!-- Header -->
             <div class="header">
                 <div class="header-logo">
+                  <a href="{{ route('content.index') }}">
                     <img src="{{ asset('logo/logo.svg') }}" alt="">
+                  </a>
                 </div>
             </div>
             <!-- End of Header -->
@@ -50,13 +34,20 @@
             <!-- Search Bar -->
             <div class="search">
                 <div id="searchWrapper">
+                  <form action="{{ route('content.index') }}"
+                  method="GET"
+                  role="search">
                     <input
                     type="text"
                     style="color: #FDFCFC; font-family: 'IBM Plex Mono', monospace; font-size: 2rem; background-color:#504E4E ";
-                    name="searchBar"
+                    name="term"
                     id="searchBar"
                     placeholder="Start typing ..."
+                    
                     />
+                    <span class="clear" onclick="document.getElementById('term').value = ''"></span>
+                  </form>
+
                 </div>
             </div>
             <!-- End Search Bar -->
@@ -81,7 +72,7 @@
                                     <p>{{ $content->description }}</p>
                                 </div>
                                 <div class="icon">
-                                    <a href="{{ $content->link }}" target="_blank" rel="noopener" <button="" type="button" class="filter-btn" id="visit">Visit
+                                    <a href="{{ 'https://' . $content->link }}" target="_blank" rel="noopener" <button="" type="button" class="filter-btn" id="visit">Visit
                                     </a>
                                 </div>
                             </div>
@@ -122,7 +113,8 @@
               </div>
               <div class="modal-overlay">
                 <div class="modal-container">
-                  <form class="form"  method="POST" data-netlify="true" value="recommend" name="recommend">
+                  <form class="form" action="{{ route('advice.store') }}"  method="POST">
+                    @csrf
                     <input
                       type="text"
                       id="category"
@@ -162,7 +154,7 @@
                       class="form__input"
                       autocomplete="off"
                       placeholder=" "
-                      name="desc"
+                      name="description"
                       required
                     />
                     <label for="desc" class="form__label">Short Description</label><br />
@@ -180,9 +172,15 @@
         </div>
         <div class="footer"><p>Mulai aja Dulu</p></div>
         <!-- End Apps -->
-        
+        <script>
+          const icon = document.querySelector('.icon');
+          const search = document.querySelector('.search');
+          icon.onclick = function() {
+            search.classList.toggle('active')
+          }
+        </script>
     </body>
-    <script src="app.js"></script>
-    <script src="disable.js"></script>
-    <script src="modal.js"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/disable.js') }}"></script>
+    <script src="{{ asset('js/modal.js') }}"></script>
 </html>
